@@ -22,9 +22,7 @@ const getAllItems = async (req: Request, res: Response) => {
 const updateItem = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const { data } = req.body;
-        const response = await updateCar( id, data );
-        console.log({data})
+        const response = await updateCar( id );
         res.send(response);
 
     } catch (e) {
@@ -33,15 +31,17 @@ const updateItem = async (req: Request, res: Response) => {
 }
 const postItem = async (req: Request, res: Response) => {
     try {
-        const responseItem =  insertCar(req.body)
-        res.send(responseItem)
+        const response = await insertCar( req.body )
+        res.send(response)
     } catch (e) {
         handlerHttp(res, 'ERROR POST ITEMS', e)
     };
 }
 const deleteItem = async (req: Request, res: Response) => {
     try {
-        
+        const { id } = req.params;
+        const response = await deleteCar( id )
+        res.send(response)
     } catch (e) {
         handlerHttp(res, 'ERROR DELETE ITEMS', e)
     };

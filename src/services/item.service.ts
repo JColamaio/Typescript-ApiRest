@@ -16,16 +16,15 @@ const getOneCar = async (id: string) => {
     return responseOneItem
 }
 
-const updateCar = async (id: string, data: Car) => {
-    const responseUpdateItem = await ItemModel.findOneAndUpdate({ _id: id }, data, {
-        new: true,
-    });
+const updateCar = async (id: string) => {
+    const responseUpdateItem = await ItemModel.findByIdAndUpdate({ _id: id },
+    );
+    return responseUpdateItem
 
-console.log(data,'este')
-return responseUpdateItem
 };
 
-const deleteCar = async () => {
-
+const deleteCar = async (id:string) => {
+    const responseDeleteItem = await ItemModel.findOneAndRemove({ id })
+    return responseDeleteItem;
 }
 export { insertCar, getCars, getOneCar, updateCar, deleteCar }
