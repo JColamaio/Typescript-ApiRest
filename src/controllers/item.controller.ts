@@ -6,6 +6,8 @@ const getItem = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const response = await getOneCar(id);
+        const data = response ? response : "NOT_FOUND"
+
         res.send(response);
     } catch (e) {
         handlerHttp(res, 'ERROR GET ITEM', e)
