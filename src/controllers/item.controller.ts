@@ -1,39 +1,49 @@
 import { Request, Response } from "express"
+import { insertCar, getCars, getOneCar, updateCar, deleteCar} from "../services/item.service";
 import { handlerHttp } from "../utils/error.hander";
 
-const getItem = (req: Request, res: Response) => {
+const getItem = async (req: Request, res: Response) => {
     try {
-    
+        const { id } = req.params;
+        const response = await getOneCar(id);
+        res.send(response);
     } catch (e) {
-    handlerHttp(res, 'ERROR GET ITEM')
+        handlerHttp(res, 'ERROR GET ITEM', e)
     };
 }
-const getAllItems = (req: Request, res: Response) => {
+const getAllItems = async (req: Request, res: Response) => {
     try {
-        
+        const response = await getCars();
+        res.send(response)
     } catch (e) {
-        handlerHttp(res, 'ERROR GET ITEMS')
+        handlerHttp(res, 'ERROR GET ITEMS', e)
     };
 }
-const updateItem = (req: Request, res: Response) => {
+const updateItem = async (req: Request, res: Response) => {
     try {
+        const { id } = req.params;
+        const { data } = req.body;
+        const response = await updateCar( id, data );
+        console.log({data})
+        res.send(response);
 
     } catch (e) {
-        handlerHttp(res, 'ERROR UPDATE ITEM')
+        handlerHttp(res, 'ERROR UPDATE ITEM', e)
     };
 }
-const postItem = (req: Request, res: Response) => {
+const postItem = async (req: Request, res: Response) => {
+    try {
+        const responseItem =  insertCar(req.body)
+        res.send(responseItem)
+    } catch (e) {
+        handlerHttp(res, 'ERROR POST ITEMS', e)
+    };
+}
+const deleteItem = async (req: Request, res: Response) => {
     try {
         
     } catch (e) {
-        handlerHttp(res, 'ERROR POST ITEMS')
-    };
-}
-const deleteItem = (req: Request, res: Response) => {
-    try {
-        
-    } catch (e) {
-        handlerHttp(res, 'ERROR DELETE ITEMS')
+        handlerHttp(res, 'ERROR DELETE ITEMS', e)
     };
 }
 
