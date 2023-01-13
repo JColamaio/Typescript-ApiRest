@@ -1,0 +1,6 @@
+
+const getOrders = () => {
+
+}
+
+export { getOrders }
