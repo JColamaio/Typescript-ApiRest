@@ -3,7 +3,7 @@ import { verify } from "jsonwebtoken";
 import { Auth } from "../interfaces/auth.interface";
 import { User } from "../interfaces/user.interface";
 import  UserModel  from "../models/user.model"
-import  { encrypt }  from '../utils/bcrypt.handler'
+import  { encrypt, verified }  from '../utils/bcrypt.handler'
 
 const registerNewUser = async ({ email, password, name }: User) => {
     const checkIs = await UserModel.findOne({ email });
@@ -22,7 +22,7 @@ const loginUser = async ({email, password}: Auth) => {
     if (!checkIs) return "USER NOT FOUND"
 
     const passwordHash = checkIs.password
-    const isCorrect = await verify(password, passwordHash)
+    const isCorrect = await verified(password, passwordHash)
 
     if(!isCorrect) return 'INCORRECT PASSWORD'
     

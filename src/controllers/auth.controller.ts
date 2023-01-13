@@ -10,6 +10,7 @@ const registerController = async (req: Request, res: Response) => {
 const loginController = async (req: Request, res: Response) => {
     const {email, password} = req.body;
     const responseUser = await loginUser({ email, password });
+    console.log({responseUser})
 
     if(responseUser === "INCORRECT PASSWORD") {
         res.status(403);
