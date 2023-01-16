@@ -9,7 +9,9 @@ const generateToken =  (id:string) => {
     return jwt; 
 }
 
-const verifyToken = () => {
-
+const verifyToken = (jwt:string) => {
+    // @ts-ignore
+    const isOk = verify(jwt, JWT_SECRET,)
+    return isOk;
 }
 export { generateToken, verifyToken }
