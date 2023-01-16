@@ -1,9 +1,13 @@
 import { Request, Response } from "express"
-
-const getItems = async (req: Request, res: Response) => {
+import { JwtPayload } from "jsonwebtoken"
+interface RequestExt extends Request{
+    user?: string | JwtPayload;
+}
+const getItems =  (req: RequestExt, res: Response) => {
     try {
         res.send({
-            data: "THIS CAN ONLY BE SEEN BY USERS WITH SESSIONS / JWT"
+            data: "THIS CAN ONLY BE SEEN BY USERS WITH SESSIONS / JWT",
+            user: req.user
         })
     } catch (error) {
         
